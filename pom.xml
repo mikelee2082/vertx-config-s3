@@ -33,6 +33,12 @@
 			<classifier>processor</classifier>
 			<version>${vertx.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.adobe.testing</groupId>
+			<artifactId>s3mock</artifactId>
+			<version>1.0.4</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
