@@ -1,0 +1,1 @@
+package nz.silence.vertx.config.s3;
