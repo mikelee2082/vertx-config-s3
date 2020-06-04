@@ -1,5 +1,7 @@
 # vertx-config-s3
 
+![Maven Package](https://github.com/mikelee2082/vertx-config-s3/workflows/Maven%20Package/badge.svg?branch=v0.1.0)
+
 Allow vertx applications to retrieve configuration from S3 object storage. Uses the standard vertx ConfigStoreOptions syntax with the "s3" type.
 
 ### Example
