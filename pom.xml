@@ -2,13 +2,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>nz.silence</groupId>
-	<artifactId>vertx-s3-config-store</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>com.github.mikelee2082</groupId>
+	<artifactId>vertx-config-s3</artifactId>
+	<version>0.0.1</version>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<properties>
 		<vertx.version>3.9.1</vertx.version>
 		<junit-jupiter.version>5.5.2</junit-jupiter.version>
 		<maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+		<awssdk.version>2.13.28</awssdk.version>
+		<maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -19,7 +28,7 @@
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>s3</artifactId>
-			<version>2.13.28</version>
+			<version>${awssdk.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.vertx</groupId>
@@ -45,25 +54,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${maven-compiler-plugin-version}</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
-				<executions>
-					<execution>
-						<id>default-compile</id>
-						<configuration>
-							<annotationProcessors>
-								<annotationProcessor>io.vertx.codegen.CodeGenProcessor</annotationProcessor>
-							</annotationProcessors>
-							<compilerArgs>
-								<arg>-Acodegen.output=${project.basedir}/src/main</arg>
-							</compilerArgs>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

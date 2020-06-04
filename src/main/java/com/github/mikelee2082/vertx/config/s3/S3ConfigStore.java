@@ -1,4 +1,4 @@
-package nz.silence.vertx.config.s3;
+package com.github.mikelee2082.vertx.config.s3;
 
 import java.net.URI;
 import io.vertx.config.spi.ConfigStore;

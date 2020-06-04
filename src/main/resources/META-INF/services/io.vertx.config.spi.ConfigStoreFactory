@@ -1,1 +1,1 @@
-nz.silence.vertx.config.s3.S3ConfigStoreFactory
+com.github.mikelee2082.vertx.config.s3.S3ConfigStoreFactory

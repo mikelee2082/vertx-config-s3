@@ -1,4 +1,4 @@
-package nz.silence.vertx.config.s3;
+package com.github.mikelee2082.vertx.config.s3;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,6 +42,7 @@ class TestS3ConfigStoreFactory {
 						.put("access_key", "access_key")
 						.put("secret_access_key", "secret_access_key")
 						.put("endpoint_url", "http://localhost:9000"));
+		System.out.println(Region.US_WEST_2.toString());
 		ConfigRetriever retriever = ConfigRetriever.create(vertx, new ConfigRetrieverOptions().addStore(s3));
 		retriever.getConfig(context.succeeding(handler -> {
 			assertEquals("hello", handler.getString("message"));
