@@ -1,4 +1,4 @@
-# vertx-s3-config-store
+# vertx-config-s3
 
 Allow vertx applications to retrieve configuration from S3 object storage. Uses the standard vertx ConfigStoreOptions syntax with the "s3" type.
 
