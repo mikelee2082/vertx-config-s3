@@ -1,15 +1,5 @@
 package com.github.mikelee2082.vertx.config.s3;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.File;
-import java.net.URI;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
 import com.adobe.testing.s3mock.S3MockApplication;
 import io.vertx.config.ConfigRetriever;
 import io.vertx.config.ConfigRetrieverOptions;
@@ -18,6 +8,10 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -27,10 +21,16 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
+import java.io.File;
+import java.net.URI;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @ExtendWith(VertxExtension.class)
 class TestS3ConfigStoreFactory {
 	
-	private static S3MockApplication s3Mock;	
+	private static S3MockApplication s3Mock;
 
 	@Test
 	public void testInit(Vertx vertx, VertxTestContext context) {
@@ -42,7 +42,24 @@ class TestS3ConfigStoreFactory {
 						.put("access_key", "access_key")
 						.put("secret_access_key", "secret_access_key")
 						.put("endpoint_url", "http://localhost:9000"));
-		System.out.println(Region.US_WEST_2.toString());
+		ConfigRetriever retriever = ConfigRetriever.create(vertx, new ConfigRetrieverOptions().addStore(s3));
+		retriever.getConfig(context.succeeding(handler -> {
+			assertEquals("hello", handler.getString("message"));
+			context.completeNow();
+		}));
+		assertNotNull(retriever);
+	}
+
+	@Test
+	public void testInitWithoutCredentials(Vertx vertx, VertxTestContext context) {
+		System.setProperty("aws.accessKeyId", "access_key");
+		System.setProperty("aws.secretAccessKey", "secret_access_key");
+		ConfigStoreOptions s3 = new ConfigStoreOptions().setType("s3").setFormat("json")
+				.setConfig(new JsonObject()
+						.put("key", "key")
+						.put("bucket", "bucket")
+						.put("region", Region.US_WEST_2.toString())
+						.put("endpoint_url", "http://localhost:9000"));
 		ConfigRetriever retriever = ConfigRetriever.create(vertx, new ConfigRetrieverOptions().addStore(s3));
 		retriever.getConfig(context.succeeding(handler -> {
 			assertEquals("hello", handler.getString("message"));
