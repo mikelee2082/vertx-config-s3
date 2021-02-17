@@ -26,8 +26,15 @@ Pass "s3" to the setType method when creating ConfigStoreOptions. The configurat
 - the object key
 - the bucket where the object can be found
 - the region
-- an AWS access key
-- an AWS secret access key
+- an AWS access key (optional)
+- an AWS secret access key (optional)
+
+If AWS access key and secret access key are not provided, the DefaultCredentialsProvider will look for credentials in this order:
+  1. Java System Properties - aws.accessKeyId and aws.secretAccessKey
+  2. Environment Variables - AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+  3. Credential profiles file at the default location (~/.aws/credentials) shared by all AWS SDKs and the AWS CLI
+  4. Credentials delivered through the Amazon EC2 container service if AWS_CONTAINER_CREDENTIALS_RELATIVE_URI" environment variable is set and security manager has permission to access the variable,
+  5. Instance profile credentials delivered through the Amazon EC2 metadata service
 
 ```
 ConfigStoreOptions s3 = new ConfigStoreOptions()

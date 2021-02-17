@@ -26,12 +26,16 @@ public class S3ConfigStore implements ConfigStore {
 
 	public S3ConfigStore(Vertx vertx, JsonObject config) {
 		try {
-			AwsCredentials creds = AwsBasicCredentials.create(config.getString("access_key"), config.getString("secret_access_key"));
-			AwsCredentialsProvider provider = StaticCredentialsProvider.create(creds);
 			key = config.getString("key");
 			bucket = config.getString("bucket");
 			region = Region.of(config.getString("region"));
-			S3ClientBuilder builder = S3Client.builder().region(region).credentialsProvider(provider);
+			S3ClientBuilder builder = S3Client.builder().region(region);
+            if (config.containsKey("access_key") && config.containsKey("secret_access_key")) {
+                AwsCredentials creds = AwsBasicCredentials.create(config.getString("access_key"),
+                    config.getString("secret_access_key"));
+                AwsCredentialsProvider provider = StaticCredentialsProvider.create(creds);
+                builder = builder.credentialsProvider(provider);
+              }
 			if (config.containsKey("endpoint_url")) {
 				builder = builder.endpointOverride(new URI(config.getString("endpoint_url")));
 			}
