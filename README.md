@@ -1,6 +1,6 @@
 # vertx-config-s3
 
-![Maven Package](https://github.com/mikelee2082/vertx-config-s3/workflows/Maven%20Package/badge.svg?branch=v0.1.0)
+![Maven Package](https://github.com/mikelee2082/vertx-config-s3/workflows/Maven%20Package/badge.svg?branch=v0.2.0)
 
 Allow vertx applications to retrieve configuration from S3 object storage. The library is an extension to the Vertx ConfigStoreFactory to allow configuration to be retrieved from a file kept in an S3 object store. For more information, see the [vertx-config documentation](https://vertx.io/docs/vertx-config/java/).
 
@@ -10,7 +10,7 @@ Allow vertx applications to retrieve configuration from S3 object storage. The l
 <dependency>
   <groupId>com.github.mikelee2082</groupId>
   <artifactId>vertx-config-s3</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 Then run:
